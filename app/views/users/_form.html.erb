@@ -1,0 +1,51 @@
+
+<%= form_with(model: user, class: "contents", id: "user_form", data: { controller: 'user',turbo_frame: 'modal' }) do |form| %>
+  <% if user.errors.any? %>
+    <div id="error_explanation" class="bg-red-50 text-red-500 px-3 py-2 font-medium rounded-lg mt-3">
+      <h2><%= pluralize(user.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+        <% user.errors.each do |error| %>
+          <li><%= error.full_message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="my-5">
+    <%= form.label :email %>
+    <%= form.text_field :email, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", 'data-user-target': 'emailAddress', 'data-action': 'focusout->user#validateEmailAddress' %>
+    <p class="text-red-500  <%= 'hidden' unless user.errors.present? && user.email.present? %>">Please Enter a valid
+      Email Address</p>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :first_name %>
+    <%= form.text_field :first_name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", 'data-user-target': 'firstName', 'data-action': 'focusout->user#validateFirstName' %>
+    <p class="text-red-500  <%= 'hidden' unless user.errors.present? && user.first_name.present? %>">Please Enter a
+      valid First Name</p>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :last_name %>
+    <%= form.text_field :last_name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", 'data-user-target': 'lastName', 'data-action': 'focusout->user#validateLastName' %>
+    <p class="text-red-500  <%= 'hidden' unless user.errors.present? && user.last_name.present? %>">Please Enter a valid
+      Last Name</p>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :nick_name %>
+    <%= form.text_field :nick_name, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full" %>
+  </div>
+
+  <div class="my-5">
+    <%= form.label :phone_number %>
+    <%= form.text_field :phone_number, class: "block shadow rounded-md border border-gray-200 outline-none px-3 py-2 mt-2 w-full", 'data-user-target': 'phoneNumber', 'data-action': 'focusout->user#validatePhoneNumber' %>
+    <p class="text-red-500  <%= 'hidden' unless user.errors.present? && user.phone_number.present? %>">Please Enter a
+      valid Phone Number</p>
+  </div>
+
+
+  <div class="inline">
+    <%= form.submit class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer bg-grey", 'data-user-target': 'submitButton' %>
+  </div>
+<% end %>
